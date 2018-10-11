@@ -1,0 +1,20 @@
+version: '3.3'
+
+services:
+   db:
+     image: mysql:5.7
+     ports:
+       - "3306:3306"
+     volumes:
+       - db_data2:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: secret1_root
+       MYSQL_DATABASE: medizin
+       MYSQL_USER: medi
+       MYSQL_PASSWORD: secret1
+
+volumes:
+    db_data2:
+
+       
