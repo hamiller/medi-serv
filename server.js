@@ -1,40 +1,54 @@
-var express = require('express');
-var app = express();
-var router = express.Router();
-var path = __dirname + '/views/';
-var mysql = require('mysql');
+const express = require('express');
+const fileUpload = require('express-fileupload');
+const bodyParser = require('body-parser');
+const mysql = require('mysql');
+const path = require('path');
+const app = express();
 
-var con = mysql.createConnection({
-  	host: "localhost",
-  	port: 3306,
-  	user: "medi",
-  	password: "secret1"
-});
- 
-router.use(function (req,res,next) {
-	console.log("/" + req.method);
-  	next();
-});
+// const {getHomePage} = require('./routes/index');
+// const {addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
+const port = 5000;
 
-router.get("/",function(req,res){
-  	res.sendFile(path + "index.html");
+// create connection to database
+// the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
+const db = mysql.createConnection ({
+    host: 'localhost',
+    user: 'medi',
+    password: 'secret1',
+    database: 'medizin'
 });
 
-router.get("/about",function(req,res){
-  	res.sendFile(path + "about.html");
+// connect to database
+db.connect((err) => {
+    if (err) {
+        throw err;
+    }
+    console.log('Connected to database');
+});
+global.db = db;
+
+// configure middleware
+app.set('port', process.env.port || port); // set express to use this port
+app.set('views', __dirname + '/views'); // set express to look in this folder to render our view
+app.set('view engine', 'ejs'); // configure template engine
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json()); // parse form data client
+app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
+app.use(fileUpload()); // configure fileupload
+
+// routes for the app
+/*
+app.get('/', getHomePage);
+app.get('/add', addPlayerPage);
+app.get('/edit/:id', editPlayerPage);
+app.get('/delete/:id', deletePlayer);
+app.post('/add', addPlayer);
+app.post('/edit/:id', editPlayer);
+*/
+
+// set the app to listen on the port
+app.listen(port, () => {
+    console.log(`Server running on port: ${port}`);
 });
 
-app.use("/",router);
 
-app.use("*",function(req,res){
-  	res.sendFile(path + "404.html");
-});
-
-app.listen(3000,function(){
-  	console.log("Live at Port 3000");
-	con.connect(function(err) {
-	if (err) throw err;
-		console.log("Connected!");
-	});
-});
- 
