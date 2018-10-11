@@ -9,7 +9,7 @@ module.exports = {
             }
             res.render('index.ejs', {
                 title: "Welcome!!!"
-                ,players: result
+                ,entries: result
             });
         });
     },
