@@ -1,6 +1,6 @@
 <% include partials/header.ejs %>
     <div class="table-wrapper">
-        <% if (players.length > 0) {%>
+        <% if (entries.length > 0) {%>
             <table class="table table-hovered">
                 <thead class="thead-dark">
                     <tr>
@@ -15,7 +15,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% players.forEach((player, index) => { %>
+                    <% entries.forEach((player, index) => { %>
                         <tr>
                             <th scope="row"><%= player.id %></th>
                             <td><img src="/assets/img/<%= player.image %>" class="rounded-circle player-img" alt=""></td>
@@ -33,7 +33,7 @@
                 </tbody>
             </table>
         <% } else { %>
-            <p class="text-center">No players found. Go <a href="/add" >here</a> to add players.</p>
+            <p class="text-center">No entries found. Go <a href="/add" >here</a> to add entries.</p>
         <% } %>
     </div>
 </div>
