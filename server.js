@@ -12,7 +12,7 @@ const port = 5000;
 
 // create connection to database
 const db = mysql.createConnection ({
-    host: 'localhost',
+    host: 'localhost', // for mac 192.168.99.100
     user: 'medi',
     password: 'secret1',
     database: 'medizin'
@@ -49,5 +49,3 @@ app.post('/edit/:id', editEntry);
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
 });
-
-
