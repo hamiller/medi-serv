@@ -16,6 +16,7 @@ sudo npm install nodemon -g
 
 drop table JESSI1;
 
+
 CREATE TABLE JESSI1 (
   ID int NOT NULL AUTO_INCREMENT,
   illness varchar(255) NOT NULL,    -- zB Bauchschmerzen
@@ -35,6 +36,7 @@ CREATE TABLE JESSI1 (
   age int,
   PRIMARY KEY (ID)
 );
+
 
 -- copy of illness entry in JESSI1
 CREATE TABLE ILLNESS (
