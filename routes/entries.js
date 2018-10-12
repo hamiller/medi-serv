@@ -3,88 +3,98 @@ const fs = require('fs');
 module.exports = {
     addEntryPage: (req, res) => {
         res.render('add-entry.ejs', {
-            title: "Welcome to Socka | Add a new player"
+            title: "Welcome to HealthShare | Add a new entry"
             ,message: ''
         });
     },
     addEntry: (req, res) => {
-        if (!req.files) {
-            return res.status(400).send("No files were uploaded.");
-        }
+        let entryId = req.params.id;
+        let illness = req.params.illness;
+        let illness_start = req.body.illness_start;
+        let action_categorie = req.body.action_categorie;
+        let action_name = req.body.action_name;
+        let action_application = req.body.action_application;
+        let action_dose = req.body.action_dose;
+        let action_start = req.body.action_start;
+        let improvement = req.body.improvement;
+        let improvement_start = req.body.improvement_start;
+        let relevant_infos = req.body.relevant_infos;
+        let further_infos = req.body.further_infos;
+        let gender = req.body.gender;
+        let age = req.body.age;
 
-        let message = '';
-        let first_name = req.body.first_name;
-        let last_name = req.body.last_name;
-        let position = req.body.position;
-        let number = req.body.number;
-        let username = req.body.username;
-        let uploadedFile = req.files.image;
-        let image_name = uploadedFile.name;
-        let fileExtension = uploadedFile.mimetype.split('/')[1];
-        image_name = username + '.' + fileExtension;
+        let entryQuery = "SELECT * FROM `JESSI1` WHERE illness = '" + illness + "'";
 
-        let usernameQuery = "SELECT * FROM `JESSI1` WHERE illness = '" + illness + "'";
-
-        db.query(usernameQuery, (err, result) => {
+        db.query(entryQuery, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
             if (result.length > 0) {
-                message = 'Username already exists';
-                res.render('add-player.ejs', {
+                message = 'Entry already exists';
+                res.render('add-entry.ejs', {
                     message,
-                    title: "Welcome to Socka | Add a new player"
+                    title: "Welcome to HealthShare | Add a new entry"
                 });
             } else {
-                // check the filetype before uploading it
-                if (uploadedFile.mimetype === 'image/png' || uploadedFile.mimetype === 'image/jpeg' || uploadedFile.mimetype === 'image/gif') {
-                    // upload the file to the /public/assets/img directory
-                    uploadedFile.mv(`public/assets/img/${image_name}`, (err ) => {
-                        if (err) {
-                            return res.status(500).send(err);
-                        }
-                        // send the player's details to the database
-                        let query = "INSERT INTO `entries` (first_name, last_name, position, number, image, user_name) VALUES ('" +
-                            first_name + "', '" + last_name + "', '" + position + "', '" + number + "', '" + image_name + "', '" + username + "')";
-                        db.query(query, (err, result) => {
-                            if (err) {
-                                return res.status(500).send(err);
-                            }
-                            res.redirect('/');
-                        });
-                    });
-                } else {
-                    message = "Invalid File format. Only 'gif', 'jpeg' and 'png' images are allowed.";
-                    res.render('add-player.ejs', {
-                        message,
-                        title: "Welcome to Socka | Add a new player"
-                    });
-                }
+                // send the entries's details to the database
+                let query = "INSERT INTO `JESSI1` (illness, illness_start, action_categorie, action_name, action_application, action_dose, action_start, improvement, improvement_start, relevant_infos, further_infos, gender, age) VALUES ('" +
+                    illness + "', '" +  illness_start + "', '" +  action_categorie + "', '" +  action_name + "', '" +
+                    action_application + "', '" +  action_dose + "', '" +  action_start + "', '" +  improvement + "', '" +
+                    improvement_start + "', '" +  relevant_infos + "', '" +  further_infos + "', '" +  gender + "', '" +  age+ "')";
+                db.query(query, (err, result) => {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    res.redirect('/');
+                });
+                
             }
         });
     },
     editEntryPage: (req, res) => {
-        let playerId = req.params.id;
-        let query = "SELECT * FROM `entries` WHERE id = '" + playerId + "' ";
+        let entryId = req.params.id;
+        let query = "SELECT * FROM `JESSI1` WHERE id = '" + entryId + "' ";
         db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
-            res.render('edit-player.ejs', {
+            res.render('edit-entry.ejs', {
                 title: "Edit  Entry"
-                ,player: result[0]
+                ,entry: result[0]
                 ,message: ''
             });
         });
     },
     editEntry: (req, res) => {
-        let playerId = req.params.id;
-        let first_name = req.body.first_name;
-        let last_name = req.body.last_name;
-        let position = req.body.position;
-        let number = req.body.number;
+        let entryId = req.params.id;
+        let illness = req.params.illness;
+        let illness_start = req.body.illness_start;
+        let action_categorie = req.body.action_categorie;
+        let action_name = req.body.action_name;
+        let action_application = req.body.action_application;
+        let action_dose = req.body.action_dose;
+        let action_start = req.body.action_start;
+        let improvement = req.body.improvement;
+        let improvement_start = req.body.improvement_start;
+        let relevant_infos = req.body.relevant_infos;
+        let further_infos = req.body.further_infos;
+        let gender = req.body.gender;
+        let age = req.body.age;
 
-        let query = "UPDATE `entries` SET `first_name` = '" + first_name + "', `last_name` = '" + last_name + "', `position` = '" + position + "', `number` = '" + number + "' WHERE `entries`.`id` = '" + playerId + "'";
+        let query = "UPDATE `JESSI1` SET `illness` = '" + illness + "', " +
+            "`illness_start` = '" + illness_start + "', " +
+            "`action_categorie` = '" + action_categorie + "', " +
+            "`action_name` = '" + action_name + "', " +
+            "`action_application` = '" + action_application + "', " +
+            "`action_dose` = '" + action_dose + "', " +
+            "`action_start` = '" + action_start + "', " +
+            "`improvement` = '" + improvement + "', " +
+            "`improvement_start` = '" + improvement_start + "', " +
+            "`relevant_infos` = '" + relevant_infos + "', " +
+            "`further_infos` = '" + further_infos + "', " +
+            "`gender` = '" + gender + "', " +
+            "`age` = '" + age + "' WHERE `entries`.`id` = '" + entryId + "'";
+
         db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
@@ -93,28 +103,14 @@ module.exports = {
         });
     },
     deleteEntry: (req, res) => {
-        let playerId = req.params.id;
-        let getImageQuery = 'SELECT image from `entries` WHERE id = "' + playerId + '"';
-        let deleteUserQuery = 'DELETE FROM entries WHERE id = "' + playerId + '"';
+        let entryId = req.params.id;
+        let deleteEntryQuery = 'DELETE FROM JESSI1 WHERE id = "' + entryId + '"';
 
-        db.query(getImageQuery, (err, result) => {
+        db.query(deleteEntryQuery, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
-
-            let image = result[0].image;
-
-            fs.unlink(`public/assets/img/${image}`, (err) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
-                db.query(deleteUserQuery, (err, result) => {
-                    if (err) {
-                        return res.status(500).send(err);
-                    }
-                    res.redirect('/');
-                });
-            });
+            res.redirect('/');
         });
     }
 };
