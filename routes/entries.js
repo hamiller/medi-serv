@@ -8,9 +8,9 @@ module.exports = {
         });
     },
     addEntry: (req, res) => {
-        console.log(req.params, req.body);
+        console.log(JSON.stringify(req.body, null, 2));
         let entryId = req.params.id;
-        let illness = req.params.illness;
+        let illness = req.body.illness;
         let illness_start = req.body.illness_start;
         let action_categorie = req.body.action_categorie;
         let action_name = req.body.action_name;
@@ -20,39 +20,25 @@ module.exports = {
         let action_dose = req.body.action_dose;
         let action_start = req.body.action_start;
         let improvement = req.body.improvement;
-        let improvement_start = req.body.improvement_start || "1.1.1970";
+        let improvement_start = req.body.improvement_start || "1970-01-01";
         let relevant_infos = req.body.relevant_infos || "";
         let further_infos = req.body.further_infos || "";
         let gender = req.body.gender || "";
         let age = req.body.age || "0";
 
-        let entryQuery = "SELECT * FROM `JESSI1` WHERE illness = '" + illness + "'";
 
-        db.query(entryQuery, (err, result) => {
+        // send the entries's details to the database
+        let query = "INSERT INTO `JESSI1` (illness, illness_start, action_categorie, action_name, action_application, action_interval, action_interval_type, action_dose, action_start, improvement, improvement_start, relevant_infos, further_infos, gender, age) VALUES ('" +
+            illness + "', '" +  illness_start + "', '" +  action_categorie + "', '" +  action_name + "', '" +
+            action_application + "', '" +  action_interval + "', '" + action_interval_type + "', '" + action_dose + "', '" +  action_start + "', '" +  improvement + "', '" +
+            improvement_start + "', '" +  relevant_infos + "', '" +  further_infos + "', '" +  gender + "', '" +  age+ "')";
+        db.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
-            if (result.length > 0) {
-                message = 'Entry already exists';
-                res.render('add-entry.ejs', {
-                    message,
-                    title: "Welcome to HealthShare | Add a new entry"
-                });
-            } else {
-                // send the entries's details to the database
-                let query = "INSERT INTO `JESSI1` (illness, illness_start, action_categorie, action_name, action_application, action_interval, action_interval_type, action_dose, action_start, improvement, improvement_start, relevant_infos, further_infos, gender, age) VALUES ('" +
-                    illness + "', '" +  illness_start + "', '" +  action_categorie + "', '" +  action_name + "', '" +
-                    action_application + "', '" +  action_interval + "', '" + action_interval_type + "', '" + action_dose + "', '" +  action_start + "', '" +  improvement + "', '" +
-                    improvement_start + "', '" +  relevant_infos + "', '" +  further_infos + "', '" +  gender + "', '" +  age+ "')";
-                db.query(query, (err, result) => {
-                    if (err) {
-                        return res.status(500).send(err);
-                    }
-                    res.redirect('/');
-                });
-                
-            }
+            res.redirect('/');
         });
+                
     },
     editEntryPage: (req, res) => {
         let entryId = req.params.id;

@@ -4,29 +4,28 @@
             <table class="table table-hovered">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">First Name</th>
-                        <th scope="col">Last Name</th>
-                        <th scope="col">Position</th>
-                        <th scope="col">Number</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Action</th>
+                        <th scope="col">Krankheit</th>
+                        <th scope="col">Beschreibung</th>
+                        <th scope="col">Maßnahme/Medikament/Wirkstoff</th>
+                        <th scope="col">Hat anderen geholfen?</th>
+                        <th scope="col">Anzahl d. Bewertungen</th>
+                        <th scope="col">Details</th>
+                        <th scope="col"></th>
                     </tr>
                 </thead>
                 <tbody>
-                    <% entries.forEach((player, index) => { %>
+                    <% entries.forEach((entry, index) => { %>
                         <tr>
-                            <th scope="row"><%= player.id %></th>
-                            <td><img src="/assets/img/<%= player.image %>" class="rounded-circle player-img" alt=""></td>
-                            <td><%= player.first_name %></td>
-                            <td><%= player.last_name %></td>
-                            <td><%= player.position %></td>
-                            <td><%= player.number %></td>
-                            <td>@<%= player.user_name %></td>
+                            <th scope="row"><%= entry.illness %></th>
+                            <td><%= entry.action_categorie %></td>
+                            <td><%= entry.action_name %></td>
+                            <td><%= entry.improvement %>&#037;</td>
+                            <td><%= entry.total %></td>
+                            <td><li>Studie 1</li>
+                            <li>Detailiertere Einträge</li> </td>
                             <td>
-                                <a href="/edit/<%= player.id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
-                                <a href="/delete/<%= player.id %>" class="btn btn-sm btn-danger">Delete</a>
+                                <a href="/edit/<%= entry.id %>" target="_blank" rel="noopener" class="btn btn-sm btn-success">Edit</a>
+                                <a href="/delete/<%= entry.id %>" class="btn btn-sm btn-danger">Delete</a>
                             </td>
                         </tr>
                     <% }) %>
