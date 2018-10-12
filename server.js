@@ -1,5 +1,4 @@
 const express = require('express');
-const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const mysql = require('mysql');
 const path = require('path');
@@ -33,8 +32,6 @@ app.set('views', __dirname + '/views'); // set express to look in this folder to
 app.set('view engine', 'ejs'); // configure template engine
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()); // parse form data client
-app.use(express.static(path.join(__dirname, 'public'))); // configure express to use public folder
-app.use(fileUpload()); // configure fileupload
 
 // routes for the app
 app.get('/', getHomePage);

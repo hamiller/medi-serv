@@ -4,48 +4,64 @@
         <p class="text-center text-danger"><%= message %></p>
     <% } %>
 
-    <% if (player) { %>
+    <% if (entry) { %>
         <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="first-name">First Name</label>
-                    <input type="text" class="form-control" name="first_name" id="first-name" value="<%= player.first_name %>" required>
+                    <label for="first-name">Um welche gesundheitlichen Probleme geht es?</label>
+                    <input type="text" class="form-control" name="illness" id="first-illness" value="<%= entry.illness %>" required>
                 </div>
+            </div>
+            <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="last-name">Last Name</label>
-                    <input type="text" class="form-control" name="last_name" id="last-name" value="<%= player.last_name %>" required>
-                </div>
-                <div class="form-group col-md-4">
-                    <label for="username">Username</label>
-                    <input type="text" class="form-control" name="username" id="username" value="<%= player.user_name %>" required disabled title="Username cannot be edited.">
+                    <label for="last-name">Wann traten die Symptome erstmalig auf?</label>
+                    <input type="date" class="form-control" name="illness_start" id="illness_start-name" value="<%= entry.illness_start %>" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="number">Number</label>
-                    <input type="number" class="form-control" name="number" id="number" placeholder="Number" value="<%= player.number %>" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="position">Position</label>
-                    <select id="position" name="position" class="form-control" required>
-                        <option selected><%= player.position %></option>
-                        <option>Goalkeeper</option>
-                        <option>Centre Back</option>
-                        <option>Right Back</option>
-                        <option>Left Back</option>
-                        <option>Defensive Midfielder</option>
-                        <option>Central Midfielder</option>
-                        <option>Attacking Midfielder</option>
-                        <option>Right Wing Forward</option>
-                        <option>Left Wing Forward</option>
-                        <option>Striker</option>
+                    <label for="position">Was haben Sie ausprobiert?</label>
+                    <select id="action_categorie" name="action_categorie" class="form-control" required>
+                        <option selected><%= entry.action_categorie %></option>
+                        <option>Medikament</option>
+                        <option>alternativmedizinisch</option>
+                        <option>Ernährung</option>
+                        <option>verschriebenes Verfahren</option>
+                        <option>Lebensstil - allgemein</option>
+                        <option>Lebensstil - Umzug</option>
+                        <option>Lebensstil - Urlaub</option>
+                        <option>Lebensstil - Meditation</option>
                     </select>
                 </div>
             </div>
-            <button type="submit" class="btn btn-success float-right">Update Player</button>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="action_name">Genaue Bezeichnung</label>
+                    <input type="text" class="form-control" name="action_name" id="action_name" value="<%= entry.action_name %>" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="action_name">Art der Anwendung</label>
+                    <input type="number" class="form-control" name="action_application" id="action_application" value="<%= entry.action_application %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="action_name">Häufigkeit d. Anwendung</label>
+                    <input type="number" class="form-control" name="action_interval" id="action_interval" value="<%= entry.action_interval %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="action_name">Menge</label>
+                    <input type="number" class="form-control" name="action_dose" id="action_dose" value="<%= entry.action_dose %>" required>
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="action_name">Einheit</label>
+                    <input type="number" class="form-control" name="action_interval_type" id="action_interval_type" value="<%= entry.action_interval_type %>" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success float-right">Eintrag aktualisieren</button>
         </form>
     <% } else { %>
-        <p class="text-center">Player Not Found. Go <a href="/add">here</a> to add players.</p>
+        <p class="text-center">Kein Eintrag gefunden. <a href="/add">Hier</a> kann ein neuer Eintrag erstellt werden.</p>
     <% } %>
 </div>
 </div>

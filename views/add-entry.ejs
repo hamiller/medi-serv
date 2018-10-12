@@ -5,35 +5,87 @@
         <% } %>
         <form class="add-player-form" action="" method="post" enctype="multipart/form-data">
             <div class="form-row">
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" name="first_name" id="first-name" placeholder="First Name" required>
+                <div class="form-group col-md-6">
+                    <label for="first-name">Um welche gesundheitlichen Probleme geht es?</label>
+                    <input type="text" class="form-control" name="illness" id="first-illness" required>
                 </div>
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" name="last_name" id="last-name" placeholder="Last Name" required>
-                </div>
-                <div class="form-group col-md-4">
-                    <input type="text" class="form-control" name="username" id="username" placeholder="Username" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-2">
+                    <label for="illness_start">Wann traten die Symptome erstmalig auf?</label>
+                    <input type="date" class="form-control" name="illness_start" id="illness_start" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <input type="number" class="form-control" name="number" id="number" placeholder="Number" required>
-                </div>
-                <div class="form-group col-md-6">
-                    <select id="position" name="position" class="form-control" required>
-                        <option selected disabled>Choose position</option>
-                        <option>Goalkeeper</option>
-                        <option>Defender</option>
-                        <option>Midfielder</option>
-                        <option>Forward</option>
+                    <label for="position">Was haben Sie ausprobiert?</label>
+                    <select id="action_categorie" name="action_categorie" class="form-control" required>
+                        <option>Medikament</option>
+                        <option>alternativmedizinisch</option>
+                        <option>Ernährung</option>
+                        <option>verschriebenes Verfahren</option>
+                        <option>Lebensstil - allgemein</option>
+                        <option>Lebensstil - Umzug</option>
+                        <option>Lebensstil - Urlaub</option>
+                        <option>Lebensstil - Meditation</option>
                     </select>
                 </div>
-                <div class="col-md-12">
-                    <label for="player-img"><b>Player Image</b></label><br>
-                    <input type="file" name="image" id="player-img" class="" required>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="action_name">Genaue Bezeichnung</label>
+                    <input type="text" class="form-control" name="action_name" id="action_name" required>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary float-right">Add Player</button>
+            <div class="form-row">
+                <div class="form-group col-md-3">
+                    <label for="action_name">Art der Anwendung</label>
+                    <input type="text" class="form-control" name="action_application" id="action_application" required>
+                </div>
+                <div class="form-group col-md-3">
+                    <label for="action_name">Häufigkeit d. Anwendung</label>
+                    <select id="action_interval" name="action_interval" class="form-control">
+                        <option>täglich</option>
+                        <option>wöchentlich</option>
+                    </select>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="action_name">Menge</label>
+                    <input type="number" class="form-control" name="action_dose" id="action_dose" required>
+                </div>
+                <div class="form-group col-md-1">
+                    <label for="action_name">Einheit</label>
+                    <select id="action_interval_type" name="action_interval_type" class="form-control">
+                        <option>l</option>
+                        <option>mg</option>
+                        <option>Kapsel</option>
+                        <option>Tablette</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <label for="action_start">Wann haben Sie mit der Behandlung begonnen?</label>
+                    <input type="date" class="form-control" name="action_start" id="action_start" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-5">
+                    <label for="action_start">Wie hat die Behandlung geholfen?</label>
+                    <fieldset> 
+                        <input type="radio" id="improvement" name="improvement" value="1"> <label for="mc">Sehr gut</label> 
+                        <input type="radio" id="improvement" name="improvement" value="2"> <label for="vi">Gut</label> 
+                        <input type="radio" id="improvement" name="improvement" value="3"> <label for="ae">Meh</label> 
+                        <input type="radio" id="improvement" name="improvement" value="4"> <label for="ae">Nicht sehr</label> 
+                        <input type="radio" id="improvement" name="improvement" value="5"> <label for="ae">Garnicht</label> 
+                    </fieldset>
+                </div>
+                <div class="form-group col-md-2">
+                    <label for="action_start">Wann ist eine Verbesserung eingetreten?</label>
+                    <input type="date" class="form-control" name="improvement_start" id="improvement_start">
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success float-right">Eintrag erstellen</button>
         </form>
     </div>
 </div>

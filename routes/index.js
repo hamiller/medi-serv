@@ -8,7 +8,7 @@ module.exports = {
                 res.redirect('/');
             }
             res.render('index.ejs', {
-                title: "Welcome!!!"
+                title: "Willkommen"
                 ,entries: result
             });
         });

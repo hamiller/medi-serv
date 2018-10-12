@@ -8,20 +8,23 @@ module.exports = {
         });
     },
     addEntry: (req, res) => {
+        console.log(req.params, req.body);
         let entryId = req.params.id;
         let illness = req.params.illness;
         let illness_start = req.body.illness_start;
         let action_categorie = req.body.action_categorie;
         let action_name = req.body.action_name;
         let action_application = req.body.action_application;
+        let action_interval = req.body.action_interval;
+        let action_interval_type = req.body.action_interval_type;
         let action_dose = req.body.action_dose;
         let action_start = req.body.action_start;
         let improvement = req.body.improvement;
-        let improvement_start = req.body.improvement_start;
-        let relevant_infos = req.body.relevant_infos;
-        let further_infos = req.body.further_infos;
-        let gender = req.body.gender;
-        let age = req.body.age;
+        let improvement_start = req.body.improvement_start || "1.1.1970";
+        let relevant_infos = req.body.relevant_infos || "";
+        let further_infos = req.body.further_infos || "";
+        let gender = req.body.gender || "";
+        let age = req.body.age || "0";
 
         let entryQuery = "SELECT * FROM `JESSI1` WHERE illness = '" + illness + "'";
 
@@ -37,9 +40,9 @@ module.exports = {
                 });
             } else {
                 // send the entries's details to the database
-                let query = "INSERT INTO `JESSI1` (illness, illness_start, action_categorie, action_name, action_application, action_dose, action_start, improvement, improvement_start, relevant_infos, further_infos, gender, age) VALUES ('" +
+                let query = "INSERT INTO `JESSI1` (illness, illness_start, action_categorie, action_name, action_application, action_interval, action_interval_type, action_dose, action_start, improvement, improvement_start, relevant_infos, further_infos, gender, age) VALUES ('" +
                     illness + "', '" +  illness_start + "', '" +  action_categorie + "', '" +  action_name + "', '" +
-                    action_application + "', '" +  action_dose + "', '" +  action_start + "', '" +  improvement + "', '" +
+                    action_application + "', '" +  action_interval + "', '" + action_interval_type + "', '" + action_dose + "', '" +  action_start + "', '" +  improvement + "', '" +
                     improvement_start + "', '" +  relevant_infos + "', '" +  further_infos + "', '" +  gender + "', '" +  age+ "')";
                 db.query(query, (err, result) => {
                     if (err) {
@@ -72,6 +75,8 @@ module.exports = {
         let action_categorie = req.body.action_categorie;
         let action_name = req.body.action_name;
         let action_application = req.body.action_application;
+        let action_interval = req.body.action_interval;
+        let action_interval_type = req.body.action_interval_type;
         let action_dose = req.body.action_dose;
         let action_start = req.body.action_start;
         let improvement = req.body.improvement;
@@ -86,6 +91,8 @@ module.exports = {
             "`action_categorie` = '" + action_categorie + "', " +
             "`action_name` = '" + action_name + "', " +
             "`action_application` = '" + action_application + "', " +
+            "`action_interval` = '" + action_interval + "', '" +
+            "`action_interval_type` = '" + action_interval_type + "', '" +
             "`action_dose` = '" + action_dose + "', " +
             "`action_start` = '" + action_start + "', " +
             "`improvement` = '" + improvement + "', " +
